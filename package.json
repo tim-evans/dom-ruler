@@ -1,0 +1,20 @@
+{
+  "name": "dom_ruler",
+  "version": "0.1.0",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": "Tim Evans <tim.evans@paddle8.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "broccoli": "^0.13.0",
+    "broccoli-es6-concatenator": "^0.1.8",
+    "broccoli-file-mover": "^0.4.1",
+    "broccoli-merge-trees": "^0.2.0",
+    "broccoli-uglify-js": "^0.1.3"
+  }
+}
