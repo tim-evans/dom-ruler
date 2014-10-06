@@ -144,8 +144,8 @@ var define, requireModule, require, requirejs;
   };
 })();
 
-;define("dom_ruler/layout", 
-  ["dom_ruler/styles","exports"],
+;define("dom-ruler/layout", 
+  ["dom-ruler/styles","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
     var pluckStyles = __dependency1__.pluckStyles;
@@ -310,8 +310,8 @@ var define, requireModule, require, requirejs;
     var layout = layoutOf;
     __exports__.layout = layout;
   });
-;define("dom_ruler/styles", 
-  ["dom_ruler/utils","exports"],
+;define("dom-ruler/styles", 
+  ["dom-ruler/utils","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
     var pluck = __dependency1__.pluck;
@@ -421,7 +421,7 @@ var define, requireModule, require, requirejs;
     __exports__.copyStyles = copyStyles;
     __exports__.detectBoxSizing = detectBoxSizing;
   });
-;define("dom_ruler/utils", 
+;define("dom-ruler/utils", 
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -486,8 +486,8 @@ var define, requireModule, require, requirejs;
     __exports__.merge = merge;
     __exports__.pluck = pluck;
   });
-;define("dom_ruler/text", 
-  ["dom_ruler/styles","dom_ruler/utils","dom_ruler/layout","exports"],
+;define("dom-ruler/text", 
+  ["dom-ruler/styles","dom-ruler/utils","dom-ruler/layout","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var pluckStyles = __dependency1__.pluckStyles;
@@ -545,6 +545,8 @@ var define, requireModule, require, requirejs;
         width:  "auto",
         height: "auto"
       }, additionalStyles);
+      
+      return element;
     }
 
     /**
@@ -560,7 +562,8 @@ var define, requireModule, require, requirejs;
       }
     }
 
-    function measureText(string, element, escape) {
+    function measureText(string, escape) {
+      var element = metricsCalculationElement;
       if (!escape) {
         element.innerHTML = string;
 
@@ -602,10 +605,10 @@ var define, requireModule, require, requirejs;
       prepareTextMeasurement(options.template, styles);
 
       var element = metricsCalculationElement;
-      var metrics = measure(string, element, options.escape);
+      var metrics = measure(string, options.escape);
 
       var fontSize = parseInt(pluckStyles(element).fontSize, 10);
-      var adjustment = fontSize - measure("1", element, false).content.height;
+      var adjustment = fontSize - measure("1", false).content.height;
       metrics.height += adjustment;
 
       teardownTextMeasurement();
