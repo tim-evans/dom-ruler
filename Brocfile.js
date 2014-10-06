@@ -9,7 +9,7 @@ var lib = compileES6(mergeTrees(['lib', 'bower_components/loader.js']), {
     '**/*.js'
   ],
   wrapInEval: false,
-  outputFile: '/dom_ruler.js'
+  outputFile: '/dom-ruler.js'
 });
 
 var amd = compileES6('lib', {
@@ -17,7 +17,7 @@ var amd = compileES6('lib', {
     '**/*.js'
   ],
   wrapInEval: false,
-  outputFile: '/dom_ruler.amd.js'
+  outputFile: '/dom-ruler.amd.js'
 });
 
 var uglify = function (tree, filename) {
@@ -32,7 +32,7 @@ var uglify = function (tree, filename) {
 
 module.exports = mergeTrees([
   lib,
-  uglify(lib, 'dom_ruler.js'),
+  uglify(lib, 'dom-ruler.js'),
   amd,
-  uglify(amd, 'dom_ruler.amd.js')
+  uglify(amd, 'dom-ruler.amd.js')
 ]);

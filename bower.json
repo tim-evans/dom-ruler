@@ -1,5 +1,5 @@
 {
-  "name": "dom_ruler",
+  "name": "dom-ruler",
   "dependencies": {
     "loader.js": "stefanpenner/loader.js#2.0.0"
   },
@@ -8,6 +8,6 @@
     "Tim Evans <tim.evans@paddle8.com>"
   ],
   "description": "DOM layout metric utility",
-  "main": "dist/dom_ruler.js",
+  "main": "dist/dom-ruler.js",
   "license": "MIT"
 }
