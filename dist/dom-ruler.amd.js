@@ -459,7 +459,7 @@ define("dom-ruler/layout",
       prepareTextMeasurement(options.template, styles);
 
       var element = metricsCalculationElement;
-      var metrics = measure(string, options.escape);
+      var metrics = measureText(string, options.escape);
 
       var fontSize = parseInt(pluckStyles(element).fontSize, 10);
       var adjustment = fontSize - measure("1", false).content.height;
