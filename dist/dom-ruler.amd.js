@@ -462,7 +462,7 @@ define("dom-ruler/layout",
       var metrics = measureText(string, options.escape);
 
       var fontSize = parseInt(pluckStyles(element).fontSize, 10);
-      var adjustment = fontSize - measure("1", false).content.height;
+      var adjustment = fontSize - measureText("1", false).content.height;
       metrics.height += adjustment;
 
       teardownTextMeasurement();
