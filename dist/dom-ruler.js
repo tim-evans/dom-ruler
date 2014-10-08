@@ -364,7 +364,7 @@ var define, requireModule, require, requirejs;
     };
 
     var copyStyles = function (element, targetElement) {
-      var styles = pluck(pluckStyles(element), LAYOUT_STYLES);
+      var styles = pluck(getStyles(element), LAYOUT_STYLES);
       merge(targetElement.style, styles);
     };
 
@@ -406,7 +406,7 @@ var define, requireModule, require, requirejs;
         DEFAULT_BOX_SIZING = detectDefaultBoxSizing();
       }
 
-      var styles = pluckStyles(element);
+      var styles = getStyles(element);
       return styles.boxSizing       ||
              styles.webkitBoxSizing ||
              styles.MozBoxSizing    ||
