@@ -606,7 +606,8 @@ var define, requireModule, require, requirejs;
       var metrics = getLayout(element);
 
       var fontSize = parseInt(getStyles(element).fontSize, 10);
-      var adjustment = fontSize - measureText("1", false).content.height;
+      setText("1", false);
+      var adjustment = fontSize - getLayout(element).content.height;
       metrics.height += adjustment;
 
       teardownTextMeasurement();
