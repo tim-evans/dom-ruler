@@ -148,7 +148,7 @@ var define, requireModule, require, requirejs;
   ["dom-ruler/styles","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
-    var pluckStyles = __dependency1__.pluckStyles;
+    var getStyles = __dependency1__.getStyles;
     var detectBoxSizing = __dependency1__.detectBoxSizing;
 
     /**
@@ -161,7 +161,7 @@ var define, requireModule, require, requirejs;
       return margin;
     };
 
-    var windowLayout = function (window) {
+    var getWindowLayout = function (window) {
       var width = window.innerWidth;
       var height = window.innerHeight;
 
@@ -179,7 +179,7 @@ var define, requireModule, require, requirejs;
       };
     };
 
-    var documentLayout = function (document) {
+    var getDocumentLayout = function (document) {
       var width = Math.max(
         document.body.scrollWidth, document.documentElement.scrollWidth,
         document.body.offsetWidth, document.documentElement.offsetWidth,
@@ -206,17 +206,17 @@ var define, requireModule, require, requirejs;
       Computes the layout of an element that matches
       the inspector properties of the DOM element.
      */
-    function layoutOf(element) {
+    function getLayout(element) {
       // Handle window
       if ((window.Window && element instanceof Window) || // Standards
           element === window) {                           // Safari 5.1
-        return windowLayout(element);
+        return getWindowLayout(element);
       }
 
       // Handle document
       if ((window.Document && element instanceof Document) || // Standards
           element === document) {                             // old IE
-        return documentLayout(element);
+        return getDocumentLayout(element);
       }
 
       var boxSizing = detectBoxSizing(element);
@@ -224,7 +224,7 @@ var define, requireModule, require, requirejs;
         width:  element.offsetWidth,
         height: element.offsetHeight
       };
-      var styles = pluckStyles(element);
+      var styles = getStyles(element);
       var layout = {
         width:     null,
         height:    null,
@@ -307,8 +307,7 @@ var define, requireModule, require, requirejs;
       return layout;
     }
 
-    var layout = layoutOf;
-    __exports__.layout = layout;
+    __exports__.getLayout = getLayout;
   });
 ;define("dom-ruler/styles", 
   ["dom-ruler/utils","exports"],
@@ -357,7 +356,7 @@ var define, requireModule, require, requirejs;
     var DEFAULT_BOX_SIZING;
 
     // Retrieve the computed style of the element
-    var pluckStyles = function (element) {
+    var getStyles = function (element) {
       if (document.defaultView && document.defaultView.getComputedStyle) {
         return document.defaultView.getComputedStyle(element, null);
       }
@@ -417,7 +416,7 @@ var define, requireModule, require, requirejs;
     };
 
 
-    __exports__.pluckStyles = pluckStyles;
+    __exports__.getStyles = getStyles;
     __exports__.copyStyles = copyStyles;
     __exports__.detectBoxSizing = detectBoxSizing;
   });
@@ -490,10 +489,10 @@ var define, requireModule, require, requirejs;
   ["dom-ruler/styles","dom-ruler/utils","dom-ruler/layout","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
-    var pluckStyles = __dependency1__.pluckStyles;
+    var getStyles = __dependency1__.getStyles;
     var copyStyles = __dependency1__.copyStyles;
     var merge = __dependency2__.merge;
-    var layout = __dependency3__.layout;
+    var getLayout = __dependency3__.getLayout;
 
     var metricsCalculationElement = null;
 
@@ -516,7 +515,7 @@ var define, requireModule, require, requirejs;
         document.body.insertBefore(parent, null);
       }
 
-      var styles = pluckStyles(exampleElement);
+      var styles = getStyles(exampleElement);
       copyStyles(exampleElement, element);
 
       // Explicitly set the `font` property for Mozilla
@@ -562,7 +561,7 @@ var define, requireModule, require, requirejs;
       }
     }
 
-    function measureText(string, escape) {
+    function setText(string, escape) {
       var element = metricsCalculationElement;
       if (!escape) {
         element.innerHTML = string;
@@ -579,8 +578,6 @@ var define, requireModule, require, requirejs;
       // Webkit / Blink needs this to trigger a reflow
       element.style.overflow = 'visible';
       element.style.overflow = 'hidden';
-
-      return layout(element);
     }
 
     /**
@@ -591,7 +588,7 @@ var define, requireModule, require, requirejs;
       @param options {Object} A hash of values (whether to escape the value or not)
       @return {Object} The layout of the string passed in.
      */
-    function measure(string, styles, options) {
+    function measureText(string, styles, options) {
       if (options == null) {
         options = styles;
         styles = {};
@@ -605,9 +602,10 @@ var define, requireModule, require, requirejs;
       prepareTextMeasurement(options.template, styles);
 
       var element = metricsCalculationElement;
-      var metrics = measureText(string, options.escape);
+      setText(string, options.escape);
+      var metrics = getLayout(element);
 
-      var fontSize = parseInt(pluckStyles(element).fontSize, 10);
+      var fontSize = parseInt(getStyles(element).fontSize, 10);
       var adjustment = fontSize - measureText("1", false).content.height;
       metrics.height += adjustment;
 
@@ -617,9 +615,9 @@ var define, requireModule, require, requirejs;
     }
 
     __exports__.prepareTextMeasurement = prepareTextMeasurement;
-    __exports__.measureText = measureText;
+    __exports__.setText = setText;
     __exports__.teardownTextMeasurement = teardownTextMeasurement;
-    __exports__.measure = measure;
+    __exports__.measureText = measureText;
   });
 ;define("loader", 
   [],
