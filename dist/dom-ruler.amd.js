@@ -1,4 +1,16 @@
-define("dom-ruler/layout", 
+define("dom-ruler", 
+  ["dom-ruler/layout","dom-ruler/text","dom-ruler/styles","exports"],
+  function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
+    "use strict";
+    var getLayout = __dependency1__.getLayout;
+    var measureText = __dependency2__.measureText;
+    var getStyles = __dependency3__.getStyles;
+
+    __exports__.getLayout = getLayout;
+    __exports__.measureText = measureText;
+    __exports__.getStyles = getStyles;
+  });
+;define("dom-ruler/layout", 
   ["dom-ruler/styles","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
