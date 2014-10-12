@@ -3,11 +3,18 @@
   "dependencies": {
     "loader.js": "stefanpenner/loader.js#2.0.0"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "homepage": "https://github.com/paddle8/dom-ruler",
   "authors": [
     "Tim Evans <tim.evans@paddle8.com>"
   ],
   "description": "DOM layout metric utility",
   "main": "dist/dom-ruler.js",
-  "license": "MIT"
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ]
 }
