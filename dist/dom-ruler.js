@@ -556,7 +556,7 @@ var define, requireModule, require, requirejs;
         width:  "auto",
         height: "auto"
       }, additionalStyles);
-      
+
       return element;
     }
 
@@ -616,12 +616,6 @@ var define, requireModule, require, requirejs;
       var element = metricsCalculationElement;
       setText(string, options.escape);
       var metrics = getLayout(element);
-
-      var fontSize = parseInt(getStyles(element).fontSize, 10);
-      setText("1", false);
-      var adjustment = fontSize - getLayout(element).content.height;
-      metrics.height += adjustment;
-
       teardownTextMeasurement();
 
       return metrics;
