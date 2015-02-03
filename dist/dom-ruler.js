@@ -482,6 +482,7 @@ var define, requireModule, require, requirejs;
 
       if (metricsCalculationElement == null) {
         var parent = document.createElement('div');
+        parent.id = "dom_ruler-text_measurer";
         parent.style.cssText = "position:absolute; left:-10010px; top:-10px;" +
                                "width:10000px; height:0px; overflow:hidden;" +
                                "visibility:hidden;";
