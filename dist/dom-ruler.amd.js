@@ -247,8 +247,13 @@ define("dom-ruler",
       var boxSizing;
 
       document.body.appendChild(tester);
-      tester.style.cssText = 'width:24px; padding:10px; border:2px solid #000;' +
-                             'box-sizing:content-box; -moz-box-sizing:content-box;';
+      merge(tester.style, {
+        width: '24px',
+        padding: '10px',
+        border: '2px solid #000',
+        boxSizing: 'content-box',
+        MozBoxSizing: 'content-box'
+      });
 
       switch (tester.offsetWidth) {
       case 24:
@@ -372,9 +377,15 @@ define("dom-ruler",
       if (metricsCalculationElement == null) {
         var parent = document.createElement('div');
         parent.id = "dom_ruler-text_measurer";
-        parent.style.cssText = "position:absolute; left:-10010px; top:-10px;" +
-                               "width:10000px; height:0px; overflow:hidden;" +
-                               "visibility:hidden;";
+        merge(parent.style, {
+          position: 'absolute',
+          left: '-10010px',
+          top: '-10px',
+          width: '10000px',
+          height: '0px',
+          overflow: 'hidden',
+          visibility: 'hidden'
+        });
 
         element = metricsCalculationElement = document.createElement('div');
 
@@ -424,7 +435,7 @@ define("dom-ruler",
       if (metricsCalculationElement) {
         metricsCalculationElement.innerHTML = "";
         metricsCalculationElement.className = "";
-        metricsCalculationElement.setAttribute('style', '');
+        metricsCalculationElement.removeAttribute('style');
       }
     }
 
