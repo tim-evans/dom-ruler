@@ -416,6 +416,9 @@ var define, requireModule, require, requirejs;
 
     // Retrieve the computed style of the element
     var getStyles = function (element) {
+      if (element == null) {
+        throw new Error("Cannot get styles on an element that doesn't exist");
+      }
       if (document.defaultView && document.defaultView.getComputedStyle) {
         return document.defaultView.getComputedStyle(element, null);
       }
@@ -627,7 +630,7 @@ var define, requireModule, require, requirejs;
       // Remove any leftover styling from string measurements
       if (metricsCalculationElement) {
         metricsCalculationElement.innerHTML = "";
-        metricsCalculationElement.className = "";
+        metricsCalculationElement.removeAttribute('class');
         metricsCalculationElement.removeAttribute('style');
       }
     }
