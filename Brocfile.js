@@ -1,38 +1,63 @@
-var compileES6 = require('broccoli-es6-concatenator');
+var esTranspiler = require('broccoli-babel-transpiler');
+var concat = require('broccoli-concat');
 var mergeTrees = require('broccoli-merge-trees');
-var uglifyJs = require('broccoli-uglify-js');
-var moveFile = require('broccoli-file-mover');
+var Funnel = require('broccoli-funnel');
+var pkg = require('./package.json');
 
-var lib = compileES6(mergeTrees(['lib', 'bower_components/loader.js']), {
-  loaderFile: 'loader.js',
-  inputFiles: [
-    '**/*.js'
-  ],
-  wrapInEval: false,
-  outputFile: '/dom-ruler.js'
-});
+function transpile(tree, opts) {
+  return esTranspiler(tree, {
+    stage: 0,
+    moduleIds: true,
+    modules: opts.modules,
+    loose: ['es6.modules'],
 
-var amd = compileES6('lib', {
-  inputFiles: [
-    '**/*.js'
-  ],
-  wrapInEval: false,
-  outputFile: '/dom-ruler.amd.js'
-});
+    // Transforms /index.js files to use their containing directory name
+    getModuleId: function (name) {
+      name = pkg.name + '/' + name;
+      return name.replace(/\/index$/, '');
+    },
 
-var uglify = function (tree, filename) {
-  var minFilename = filename.split('.');
-  minFilename.pop();
-  minFilename.push('min', 'js');
-  return uglifyJs(moveFile(tree, {
-    srcFile: '/' + filename,
-    destFile: '/' + minFilename.join('.')
-  }));
+    // Fix relative imports inside /index's
+    resolveModuleSource: function (source, filename) {
+      var match = filename.match(/(.+)\/index\.\S+$/i);
+
+      // is this an import inside an /index file?
+      if (match) {
+        var path = match[1];
+        return source
+          .replace(/^\.\//, path + '/')
+          .replace(/^\.\.\//, '');
+      } else {
+        return source;
+      }
+    }
+  });
 }
 
+var js = transpile('lib', { modules: 'amd' });
+var amd = concat(js, {
+  inputFiles: [
+    '**/*.js'
+  ],
+  outputFile: '/' + pkg.name + '.amd.js'
+});
+
+var full = concat(mergeTrees([
+  new Funnel('bower_components/loader.js', {
+    destDir: '/',
+    include: ['loader.js']
+  }),
+  amd
+]), {
+  inputFiles: [
+    'loader.js',
+    pkg.name + '.amd.js'
+  ],
+  outputFile: '/' + pkg.name + '.js'
+});
+
+
 module.exports = mergeTrees([
-  lib,
-  uglify(lib, 'dom-ruler.js'),
-  amd,
-  uglify(amd, 'dom-ruler.amd.js')
+  full,
+  amd
 ]);
