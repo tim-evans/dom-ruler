@@ -4,9 +4,9 @@
     "loader.js": "3.2.1"
   },
   "version": "0.1.8",
-  "homepage": "https://github.com/paddle8/dom-ruler",
+  "homepage": "https://github.com/tim-evans/dom-ruler",
   "authors": [
-    "Tim Evans <tim.evans@paddle8.com>"
+    "Tim Evans <tim.c.evans@me.com>"
   ],
   "description": "DOM layout metric utility",
   "main": "dist/dom-ruler.js",

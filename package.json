@@ -8,7 +8,7 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "Tim Evans <tim.evans@paddle8.com>",
+  "author": "Tim Evans <tim.c.evans@me.com>",
   "license": "MIT",
   "devDependencies": {
     "broccoli": "^0.16.5",
