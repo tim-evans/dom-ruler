@@ -268,8 +268,11 @@ define("dom-ruler/text", ["exports", "./styles", "./utils", "./layout"], functio
       document.body.insertBefore(parent, null);
     }
 
-    var styles = _styles.getStyles(exampleElement);
-    _styles.copyStyles(exampleElement, element);
+    var styles = {};
+    if (exampleElement) {
+      styles = _styles.getStyles(exampleElement);
+      _styles.copyStyles(exampleElement, element);
+    }
 
     // Explicitly set the `font` property for Mozilla
     var font = "";
@@ -356,14 +359,16 @@ define("dom-ruler/text", ["exports", "./styles", "./utils", "./layout"], functio
     @return {Object} The layout of the string passed in.
    */
   function measureText(string, styles, options) {
+    var hasStyles = true;
     if (options == null) {
       options = styles;
       styles = {};
+      hasStyles = false;
     }
-    _utils.merge({ escape: true, template: null, lines: false }, options);
+    _utils.merge({ escape: true, template: null }, options);
 
-    if (options.template == null) {
-      throw new Error("A template element is required to measure text.");
+    if (options.template == null || !hasStyles) {
+      throw new Error("A template element or a styles hash is required to measure text.");
     }
 
     prepareTextMeasurement(options.template, styles);

@@ -11,7 +11,8 @@ var define, requireModule, require, requirejs;
     _isArray = Array.isArray;
   }
 
-  var registry = {}, seen = {};
+  var registry = {};
+  var seen = {};
   var FAILED = false;
 
   var uuid = 0;
@@ -118,7 +119,6 @@ var define, requireModule, require, requirejs;
   requirejs = require = requireModule = function(name) {
     var mod = registry[name];
 
-
     if (mod && mod.callback instanceof Alias) {
       mod = registry[mod.callback.name];
     }
@@ -177,15 +177,20 @@ var define, requireModule, require, requirejs;
           throw new Error('Cannot access parent module of root');
         }
         parentBase.pop();
-      } else if (part === '.') { continue; }
-      else { parentBase.push(part); }
+      } else if (part === '.') {
+        continue;
+      } else { parentBase.push(part); }
     }
 
     return parentBase.join('/');
   }
 
   requirejs.entries = requirejs._eak_seen = registry;
-  requirejs.clear = function(){
+  requirejs.unsee = function(moduleName) {
+    delete seen[moduleName];
+  };
+
+  requirejs.clear = function() {
     requirejs.entries = requirejs._eak_seen = registry = {};
     seen = state = {};
   };
@@ -461,8 +466,11 @@ define("dom-ruler/text", ["exports", "./styles", "./utils", "./layout"], functio
       document.body.insertBefore(parent, null);
     }
 
-    var styles = _styles.getStyles(exampleElement);
-    _styles.copyStyles(exampleElement, element);
+    var styles = {};
+    if (exampleElement) {
+      styles = _styles.getStyles(exampleElement);
+      _styles.copyStyles(exampleElement, element);
+    }
 
     // Explicitly set the `font` property for Mozilla
     var font = "";
@@ -549,14 +557,16 @@ define("dom-ruler/text", ["exports", "./styles", "./utils", "./layout"], functio
     @return {Object} The layout of the string passed in.
    */
   function measureText(string, styles, options) {
+    var hasStyles = true;
     if (options == null) {
       options = styles;
       styles = {};
+      hasStyles = false;
     }
-    _utils.merge({ escape: true, template: null, lines: false }, options);
+    _utils.merge({ escape: true, template: null }, options);
 
-    if (options.template == null) {
-      throw new Error("A template element is required to measure text.");
+    if (options.template == null || !hasStyles) {
+      throw new Error("A template element or a styles hash is required to measure text.");
     }
 
     prepareTextMeasurement(options.template, styles);
