@@ -367,7 +367,7 @@ define("dom-ruler/text", ["exports", "./styles", "./utils", "./layout"], functio
     }
     _utils.merge({ escape: true, template: null }, options);
 
-    if (options.template == null || !hasStyles) {
+    if (options.template == null && !hasStyles) {
       throw new Error("A template element or a styles hash is required to measure text.");
     }
 
