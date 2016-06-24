@@ -74,10 +74,16 @@ define('dom-ruler/layout', ['exports', './styles'], function (exports, _styles) 
     }
 
     var boxSizing = _styles.detectBoxSizing(element);
+    var clientRect = element.getBoundingClientRect();
     var content = {
-      width: element.offsetWidth,
-      height: element.offsetHeight
+      top: clientRect.top,
+      left: clientRect.left,
+      bottom: clientRect.bottom,
+      right: clientRect.right,
+      width: clientRect.width,
+      height: clientRect.height
     };
+
     var styles = _styles.getStyles(element);
     var layout = {
       width: null,
@@ -86,8 +92,10 @@ define('dom-ruler/layout', ['exports', './styles'], function (exports, _styles) 
       content: {},
       padding: {},
       borders: {},
-      margins: {}
+      margins: {},
+      position: {}
     };
+
     var padding = {
       top: parseInt(styles.paddingTop, 10),
       right: parseInt(styles.paddingRight, 10),
@@ -149,6 +157,13 @@ define('dom-ruler/layout', ['exports', './styles'], function (exports, _styles) 
       margins.height = 'auto';
     }
     layout.margins = margins;
+
+    layout.position = {
+      top: content.top - padding.top - borders.top - margins.top,
+      left: content.left - padding.left - borders.left - margins.left,
+      bottom: content.bottom - padding.bottom - borders.bottom - margins.bottom,
+      right: content.right - padding.right - borders.right - margins.right
+    };
 
     return layout;
   }

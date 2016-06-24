@@ -3,7 +3,7 @@
   "dependencies": {
     "loader.js": ">=3.2.0"
   },
-  "version": "0.1.13",
+  "version": "0.1.15",
   "homepage": "https://github.com/tim-evans/dom-ruler",
   "authors": [
     "Tim Evans <tim.c.evans@me.com>"
