@@ -1,20 +1,29 @@
 {
   "name": "dom-ruler",
-  "version": "0.1.8",
-  "directories": {
-    "doc": "doc",
-    "test": "test"
+  "version": "0.2.0",
+  "description": "DOM layout metric utility",
+  "main": "dist/umd/index.js",
+  "jsnext:main": "dist/js/index.js",
+  "scripts": {
+    "build": "rm -rf dist && broccoli build dist",
+    "prepublish": "npm run build",
+    "postinstall": "broccoli-module-alchemist-install",
+    "postversion": "git push origin master --tags"
   },
-  "engines": {
-    "node": ">= 0.10.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tim-evans/dom-ruler.git"
   },
   "author": "Tim Evans <tim.c.evans@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "broccoli": "^0.16.5",
-    "broccoli-babel-transpiler": "^5.4.2",
-    "broccoli-concat": "0.0.13",
-    "broccoli-funnel": "^0.2.7",
-    "broccoli-merge-trees": "^0.2.3"
+    "babel-core": "^6.13.2",
+    "babel-preset-es2015": "^6.13.2",
+    "broccoli": "^0.16.9",
+    "broccoli-cli": "^1.0.0",
+    "broccoli-module-alchemist": "^0.2.1"
+  },
+  "dependencies": {
+    "broccoli-module-alchemist-install": "^0.1.6"
   }
 }
