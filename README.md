@@ -15,6 +15,5 @@ npm install -g broccoli-cli
 ## Building
 
 ```bash
-rm -rf dist
-broccoli build dist
+npm run build
 ```
