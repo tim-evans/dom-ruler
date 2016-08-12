@@ -2,41 +2,20 @@
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <style>
-    @font-face {
-      font-family: leitura-news-2-italic;
-      src: url("../vendor/leitura_news_2-italic.ttf");
-    }
-
-    @font-face {
-      font-family: leitura-news-2-roman;
-      src: url("../vendor/leitura_news_2-roman.ttf");
-    }
-
-    p {
-      font-family: leitura-news-2-roman;
-    }
-
-    .italic {
-      font-family: leitura-news-2-italic;
-    }
-
-  </style>
 </head>
 <body lang="en">
-  <button name="test" onclick="test()">Test</button>
+  <span id="test1" contenteditable=true oninput="test()">Hello, world!</span>
 
-  <p id="test1">
-    <span class="italic">Hello</span>
-  </p>
-
-  <script src="../dist/ellipsis.js"></script>
+  <pre></pre>
+  <script src="../node_modules/loader.js/lib/loader/loader.js"></script>
+  <script src="../dist/amd/dom-ruler.js"></script>
   <script>
-    var Ellipsis = require('ellipsis');
-    function test() {
-      var el = document.querySelector("#test1");
-      Ellipsis.update(el, el.querySelector("span"), { ellipsis: "..." });
+    var domRuler = require('dom-ruler');
+    function measure() {
+      var layout = domRuler.getLayout(document.querySelector("#test1"));
+      document.querySelector('pre').innerHTML = JSON.stringify({ width: layout.width, height: layout.height }, 2);
     }
+    measure();
   </script>
 </body>
 </html>
