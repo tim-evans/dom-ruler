@@ -1,6 +1,6 @@
 {
   "name": "dom-ruler",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "DOM layout metric utility",
   "main": "dist/umd/index.js",
   "jsnext:main": "dist/js/index.js",
