@@ -554,9 +554,9 @@ broccoli-module-alchemist-install@^0.1.6:
   dependencies:
     debug "^2.2.0"
 
-broccoli-module-alchemist@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/broccoli-module-alchemist/-/broccoli-module-alchemist-0.2.1.tgz#f26a02cf9f9ba58b7d6df4fca43fed95633a102e"
+broccoli-module-alchemist@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/broccoli-module-alchemist/-/broccoli-module-alchemist-0.3.0.tgz#a7574fdd8e192d115a7967c26bf62204424c0376"
   dependencies:
     broccoli-merge-trees "^1.1.1"
     broccoli-rollup "0.0.4"
