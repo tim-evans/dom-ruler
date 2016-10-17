@@ -1,0 +1,17 @@
+{
+  "name": "dom-ruler",
+  "version": "0.2.2",
+  "homepage": "https://github.com/tim-evans/dom-ruler",
+  "authors": [
+    "Tim Evans <tim.c.evans@me.com>"
+  ],
+  "description": "DOM layout metric utility",
+  "main": "dist/umd/dom-ruler.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ]
+}
