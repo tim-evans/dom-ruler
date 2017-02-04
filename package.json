@@ -6,9 +6,7 @@
   "jsnext:main": "dist/js/index.js",
   "scripts": {
     "build": "rm -rf dist && broccoli build dist",
-    "prepublish": "npm run build",
-    "postinstall": "broccoli-module-alchemist-install",
-    "postversion": "git push origin master --tags"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
