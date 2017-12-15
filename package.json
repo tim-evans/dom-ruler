@@ -2,8 +2,8 @@
   "name": "dom-ruler",
   "version": "0.2.5",
   "description": "DOM layout metric utility",
-  "main": "dist/umd/index.js",
-  "jsnext:main": "dist/js/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/js/index.js",
   "scripts": {
     "build": "rm -rf dist && broccoli build dist",
     "prepublish": "npm run build"
